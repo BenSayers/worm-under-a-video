@@ -34,7 +34,13 @@ $(function() {
             text: null
         },
         xAxis: {
-            type: 'seconds'
+            type: 'seconds' ,
+            labels: {
+                formatter: function() {
+                    if(this.value < 0) return ""
+                    return this.value;
+                }
+            }
         },
         yAxis: {
             title: {
@@ -80,11 +86,11 @@ $(function() {
                     time = (new Date()).getTime(),
                     i;
 
-                for (i = 0; i <= 10; i++) {
+                for (i = -10; i <= 0; i++) {
                     x = i;
                     data.push({
                         x: i,
-                        y: Math.random()
+                        y: 0
                     });
                 }
                 return data;
