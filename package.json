@@ -1,0 +1,13 @@
+{
+    "name": "worm-under-a-video",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "start": "./node_modules/coffee-script/bin/coffee app.coffee"
+    },
+    "dependencies": {
+        "express": "*",
+        "hbs": "*",
+        "coffee-script": "*"
+    }
+}
