@@ -147,7 +147,7 @@ $(function() {
             }
         });
 
-        (function () {
+        myPlayer.on('video:loaded', function () {
 
             var getExperience = function () {
                 var experiences = window.brightcove.experiences;
@@ -158,13 +158,13 @@ $(function() {
                 }
             }
 
-            var experience = getExperience();
+            var experience = brightcove.api.getExperience($(getExperience()).attr('id'));
 
-            var videoPlayerModule = experience.getModule(window.brightcove.api.modules.APIModules.VIDEO_PLAYER);
-            videoPlayerModule.addEventListener(window.brightcove.api.events.MediaEvent.SEEK_NOTIFY, function () {
-                console.log('has seeked');
+            var videoPlayerModule = experience.getModule('videoPlayer');
+            videoPlayerModule.addEventListener(window.brightcove.api.events.MediaEvent.SEEK_NOTIFY, function (event) {
+                console.log('has seeked to ' + event.position);
             });
-        }());
+        });
 
         myPlayer.on('video:opening', function () {
             var socket = io.connect('http://localhost');
