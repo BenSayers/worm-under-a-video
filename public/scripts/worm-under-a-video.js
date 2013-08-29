@@ -12,18 +12,19 @@ $(function() {
         }
     });
 
+    var x = 0;
+
     $('#container').highcharts({
         chart: {
             type: 'spline'  ,
             animation: Highcharts.svg,
             events: {
                 load: function() {
-
-                    // set up the updating of the chart each second
                     var series = this.series[0];
                     setInterval(function() {
-                        var x = (new Date()).getTime(), // current time
-                            y = Math.random();
+                        x++;
+                        var y = Math.floor(Math.random() * 10) + 1;
+                        console.log([x, y])
                         series.addPoint([x, y], true, true);
                     }, 1000);
                 }
@@ -73,10 +74,23 @@ $(function() {
             }
         },
         series: [{
-            data: [5, 4, 1, 2, 1, 0, 1, 4, 2, 3, 7, 8, 10, 9, 3, 2, 3, 4, 5, 5.3, 5.1, 5.2, 5.1, 4, 3, 2, 1, 2, 5, 4, 1, 2, 1, 0, 1, 4, 2, 3, 7, 8, 10, 9, 3, 2, 3, 4, 5, 5.3, 5.1, 5.2, 5.1, 4, 3, 2, 1, 2]
+            data: (function() {
+                // generate an array of random data
+                var data = [],
+                    time = (new Date()).getTime(),
+                    i;
 
-        }]
-        ,
+                for (i = 0; i <= 10; i++) {
+                    x = i;
+                    data.push({
+                        x: i,
+                        y: Math.random()
+                    });
+                }
+                return data;
+            })()
+
+        }],
         navigation: {
             menuItemStyle: {
                 fontSize: '10px'
