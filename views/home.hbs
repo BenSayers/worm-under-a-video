@@ -11,6 +11,8 @@
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script src="http://code.highcharts.com/modules/exporting.js"></script>
+    <script src="http://shared.ninemsn.com.au/share/short_cache/js/video/ninemsn.portal.common.video.loader-latest.min.js"></script>
+
 </head>
 <body>
     <h1>Worm under a video</h1>
@@ -19,7 +21,38 @@
     <p>Yay</p>
     <div id="slider-vertical" style="height: 200px;"></div>
     <p>Boo</p>
+    <div id="videoPlayer"></div>
+    <script type="text/javascript">
+        var myPlayer;
+        ninemsn.portal.common.video.ready(function () {
+            myPlayer = new ninemsn.portal.common.video.Player({
+                outputLocation: "videoPlayer",
+                data: {
+                    method: ninemsn.portal.common.video.enumerations.data.method.ID,
+                    filter: {
+                        // id: "2633252440001"
+                        id: '97F3402B-B6B6-451A-A99B-03127133372D'
+                    }
+                },
+                ads: {
+                    freewheel: {
+                        siteSection: 'noAds'
+                    }
+                }
+            });
+        });
 
+        var calculatePosition = function () {
+            setTimeout(function () {
+                if (myPlayer && myPlayer.get) {
+                    var myPos = myPlayer.get('POSITION');
+                    console.log(myPos);
+                }
+                calculatePosition();
+            },100);
+        }
+        calculatePosition();
+    </script>
     <div id="container" style="min-width: 310px; height: 200px; margin: 0 auto"></div>
 
     <script type="text/javascript" src="/scripts/worm-under-a-video.js"></script>
