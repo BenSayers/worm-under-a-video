@@ -12,10 +12,22 @@ $(function() {
         }
     });
 
-
     $('#container').highcharts({
         chart: {
-            type: 'spline'
+            type: 'spline'  ,
+            animation: Highcharts.svg,
+            events: {
+                load: function() {
+
+                    // set up the updating of the chart each second
+                    var series = this.series[0];
+                    setInterval(function() {
+                        var x = (new Date()).getTime(), // current time
+                            y = Math.random();
+                        series.addPoint([x, y], true, true);
+                    }, 1000);
+                }
+            }
         },
         title: {
             text: null

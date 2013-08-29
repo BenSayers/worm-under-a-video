@@ -1,3 +1,20 @@
-h1 {
-    color: blue;
+#video {
+    width: 800px;
+    height: 500px;
+    background-color: grey;
+    float: right;
+}
+
+div.main {
+    margin: 0 auto;
+    float: none;
+}
+
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    width: 5.3em !important;
+}
+
+.slider {
+    padding: 10px 0 0 20px;
 }
