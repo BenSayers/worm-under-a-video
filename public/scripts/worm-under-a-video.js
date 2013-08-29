@@ -197,7 +197,7 @@ $(function() {
                     positionsSent[position] = true;
                 }
 
-                setTimeout(collect, 500);
+                setTimeout(collect, 100);
             };
 
             socket.on('init', function (initData) {

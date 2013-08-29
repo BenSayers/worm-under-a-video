@@ -4,6 +4,8 @@ app = require('express')()
 server = require('http').createServer(app)
 io = require('socket.io').listen(server)
 
+data = []
+
 app.configure ->
   app.set 'port', process.env.PORT || '3000'
   app.use express.logger("dev")
@@ -16,7 +18,12 @@ app.configure ->
 app.get '/', (request, response) ->
   response.render 'home'
 
-data = []
+app.get '/status', (request, response) ->
+  response.send data
+
+app.get '/clear', (request, response) ->
+  data = []
+  response.send 200
 
 io.sockets.on 'connection', (socket) ->
   console.log data
