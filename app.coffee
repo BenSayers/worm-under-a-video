@@ -5,7 +5,7 @@ server = require('http').createServer(app)
 io = require('socket.io').listen(server)
 
 app.configure ->
-  app.set 'port', '3000'
+  app.set 'port', process.env.PORT || '3000'
   app.use express.logger("dev")
   app.set 'views', "#{__dirname}/views"
   app.set 'view engine', 'hbs'
