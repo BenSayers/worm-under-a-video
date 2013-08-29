@@ -36,6 +36,7 @@ $(function() {
         xAxis: {
             type: 'seconds' ,
             minRange: 30,
+            tickInterval: 5,
             labels: {
                 formatter: function() {
                     if(this.value < 0) return ""
