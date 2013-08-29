@@ -23,7 +23,8 @@ $(function() {
                         series.addPoint([x, y], true, true);
                     }, 1000);
                 }
-            }
+            },
+            marginTop: 20
         },
         title: {
             text: null
@@ -39,7 +40,7 @@ $(function() {
         },
         yAxis: {
             title: {
-                text: 'Sentiment'
+                text: null
             },
             min: 0,
             max: 10,
@@ -78,14 +79,13 @@ $(function() {
             data: (function() {
                 // generate an array of random data
                 var data = [],
-                    time = (new Date()).getTime(),
                     i;
 
                 for (i = -10; i <= 0; i++) {
                     x = i;
                     data.push({
                         x: i,
-                        y: 0
+                        y: 5
                     });
                 }
                 return data;

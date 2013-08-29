@@ -18,3 +18,7 @@ div.main {
 .slider {
     padding: 10px 0 0 20px;
 }
+
+#container {
+    margin-left: 10px !important;
+}
