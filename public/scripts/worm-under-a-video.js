@@ -147,6 +147,25 @@ $(function() {
             }
         });
 
+        (function () {
+
+            var getExperience = function () {
+                var experiences = window.brightcove.experiences;
+                for (var exp in experiences) {
+                    if (experiences.hasOwnProperty(exp) && $(experiences[exp]).hasClass('BrightcoveExperience')) {
+                        return experiences[exp];
+                    }
+                }
+            }
+
+            var experience = getExperience();
+
+            var videoPlayerModule = experience.getModule(window.brightcove.api.modules.APIModules.VIDEO_PLAYER);
+            videoPlayerModule.addEventListener(window.brightcove.api.events.MediaEvent.SEEK_NOTIFY, function () {
+                console.log('has seeked');
+            });
+        }());
+
         myPlayer.on('video:opening', function () {
             var socket = io.connect('http://localhost');
             var data = null;
