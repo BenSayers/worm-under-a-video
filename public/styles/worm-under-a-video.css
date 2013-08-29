@@ -52,3 +52,11 @@ h1 {
     text-align: center;
     padding-top: 20px;
 }
+
+.number {
+    text-align: center;
+    font-weight: bold;
+    font-size: 25px;
+    height: 23px;
+    padding: 5px 0;
+}

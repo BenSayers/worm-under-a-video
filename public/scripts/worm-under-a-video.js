@@ -168,19 +168,23 @@ $(function() {
             };
 
             var updateGraph = function(position, clientMood) {
-                var nextPosition = { x: position }
+                var graphData = { x: position }
 
                 var existing = data[position];
                 console.log('existing', existing);
                 if (existing) {
                     var newCount = existing.count + 1;
-                    nextPosition.y = ((existing.mood * existing.count) + clientMood) / newCount;
+                    graphData.y = ((existing.mood * existing.count) + clientMood) / newCount;
+                    graphData.count = newCount;
                 } else {
-                    nextPosition.y = clientMood;
+                    graphData.y = clientMood;
+                    graphData.count = 1;
                 }
 
-                chart.series[0].addPoint([nextPosition.x, nextPosition.y], true, true);
+                chart.series[0].addPoint([graphData.x, graphData.y], true, true);
                 //chart.series[1].addPoint([nextPosition.x, clientMood], true, true);
+
+                $('.number').text(graphData.count + ' user(s)');
             };
 
             var collect = function () {
