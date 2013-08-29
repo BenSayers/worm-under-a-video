@@ -38,7 +38,14 @@ $(function() {
             labels: {
                 formatter: function() {
                     if(this.value < 0) return ""
-                    return this.value;
+
+                    var mins = Math.floor(this.value/60),
+                        seconds = this.value%60;
+
+                    if(seconds < 10)
+                        seconds = "0" + seconds;
+
+                    return mins + ":" + seconds;
                 }
             }
         },
