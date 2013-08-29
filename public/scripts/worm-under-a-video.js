@@ -27,6 +27,9 @@ $(function() {
             },
             marginTop: 20
         },
+        legend: {
+            enabled: false
+        },
         title: {
             text: null
         },
@@ -42,6 +45,16 @@ $(function() {
         yAxis: {
             title: {
                 text: null
+            },
+            labels: {
+                formatter: function() {
+                   switch(this.value){
+                       case 10:
+                           return "Yay!";
+                       case 0:
+                           return "No!";
+                   }
+                }
             },
             min: 0,
             max: 10,
@@ -59,11 +72,11 @@ $(function() {
             }]
         },
         tooltip: {
-            valueSuffix: ' m/s'
+            valueSuffix: 's'
         },
         plotOptions: {
             spline: {
-                lineWidth: 4,
+                lineWidth: 5,
                 states: {
                     hover: {
                         lineWidth: 5
