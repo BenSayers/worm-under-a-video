@@ -5,11 +5,7 @@ $(function() {
         min: 0,
         max: 100,
         value: 50,
-        step: 1,
-
-        slide: function( event, ui ) {
-            console.log(ui.value);
-        }
+        step: 1
     });
 
     var x = 0;
@@ -24,7 +20,6 @@ $(function() {
                     setInterval(function() {
                         x++;
                         var y = Math.floor(Math.random() * 10) + 1;
-                        console.log([x, y])
                         series.addPoint([x, y], true, true);
                     }, 1000);
                 }
