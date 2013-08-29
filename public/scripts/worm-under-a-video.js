@@ -1,3 +1,16 @@
+var deviceMotionMood = 50;
+var useDeviceMotion = false;
+
+
+function logAccelerometerData(_x, _y, _z) {
+    useDeviceMotion = true;
+    normalized = _x > 0.5 ? 0.5 : _x;
+    normalized = normalized < -0.5 ? -0.5 : normalized;
+    deviceMotionMood = normalized * 100 + 50; // normalized over 
+    document.getElementById("x").innerHTML = "x:" + _x + ", ";
+}
+
+
 $(function() {
     $( "#slider-vertical" ).slider({
         orientation: "vertical",
@@ -166,7 +179,11 @@ $(function() {
             };
 
             var getMood = function () {
-                return $('#slider-vertical').slider('option', 'value');
+                if (!useDeviceMotion) {
+                    return $('#slider-vertical').slider('option', 'value');
+                } else {
+                    return deviceMotionMood;
+                }
             };
 
             var updateGraph = function(position, clientMood, comments) {
