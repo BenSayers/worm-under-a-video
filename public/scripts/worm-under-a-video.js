@@ -35,6 +35,7 @@ $(function() {
         },
         xAxis: {
             type: 'seconds' ,
+            minRange: 30,
             labels: {
                 formatter: function() {
                     if(this.value < 0) return ""
@@ -56,7 +57,7 @@ $(function() {
             labels: {
                 formatter: function() {
                    switch(this.value){
-                       case 10:
+                       case 100:
                            return "Yay!";
                        case 0:
                            return "No!";
@@ -102,7 +103,7 @@ $(function() {
                 var data = [],
                     i;
 
-                for (i = -10; i <= 0; i++) {
+                for (i = -30; i <= 0; i++) {
                     x = i;
                     data.push({
                         x: i,
