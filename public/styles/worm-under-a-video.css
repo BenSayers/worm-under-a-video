@@ -7,6 +7,23 @@
 
 }
 
+
+span.yes {
+    position: absolute;
+    width: 78px;
+    text-align: center;
+    z-index: 10;
+    top: 5px;
+}
+
+span.no {
+    position: absolute;
+    width: 78px;
+    bottom: 5px;
+    text-align: center;
+    z-index: 10;
+}
+
 div.main {
     margin: 0 auto;
     float: none;
@@ -14,10 +31,12 @@ div.main {
 
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
     width: 5.3em !important;
+    z-index: 12 !important;
 }
 
 .slider {
     padding: 0px 0 0 15px;
+    position: relative;
 }
 
 #container {
