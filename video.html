@@ -2,8 +2,40 @@
 <html>
 <head>
     <title></title>
+    <script src="http://shared.ninemsn.com.au/share/short_cache/js/video/ninemsn.portal.common.video.loader-latest.min.js"></script>
+    <script></script>
 </head>
 <body>
+
+<div id="videoPlayer"></div>
+<div id="position"></div>
+<script type="text/javascript">
+    var myPlayer;
+    ninemsn.portal.common.video.ready(function () {
+        myPlayer = new ninemsn.portal.common.video.Player({
+            outputLocation: "videoPlayer",
+            data: {
+                method: ninemsn.portal.common.video.enumerations.data.method.ID,
+                filter: {
+                   // id: "2633252440001"
+                    id: '97F3402B-B6B6-451A-A99B-03127133372D'
+                }
+            }
+        });
+    });
+
+    var position = function () {
+        setTimeout(function () {
+            if (myPlayer && myPlayer.get) {
+                var myPos = myPlayer.get('POSITION');
+                console.log(myPos);
+                ninemsn.portal.common.video.$('#position').html(myPos);
+            }
+            position();
+        },100);
+    }
+    position();
+</script>
 
 </body>
 </html>
