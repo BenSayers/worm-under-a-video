@@ -5,8 +5,20 @@ $(function() {
         min: 0,
         max: 100,
         value: 50,
-        step: 1
+        step: 1 ,
+        slide: function(event, ui) {
+            // from pure red to pure green
+            var r, g, b = 0;
+            g = Math.round(255 / 100 * ui.value); // 2.55 * (0 - 100) = 0 - 255
+            r = 255 - g;
+            var color = 'rgba(' + r + ',' + g + ',' + b + ', 0.2)';
+            $(this).find('.ui-slider-range').css({
+                'background': color
+            });
+        }
     });
+
+    $('.ui-slider-range').css({background: 'rgba(128, 127, 0, 0.2)'})
 
     var x = 0;
 
@@ -16,14 +28,7 @@ $(function() {
             type: 'spline'  ,
             animation: Highcharts.svg,
             events: {
-//                load: function() {
-//                    var series = this.series[0];
-//                    setInterval(function() {
-//                        x++;
-//                        var y = Math.floor(Math.random() * 10) + 1;
-//                        series.addPoint([x, y], true, true);
-//                    }, 1000);
-//                }
+
             },
             marginTop: 20
         },
@@ -173,6 +178,7 @@ $(function() {
                 }
 
                 chart.series[0].addPoint([nextPosition.x, nextPosition.y], true, true);
+                //chart.series[1].addPoint([nextPosition.x, clientMood], true, true);
             };
 
             var collect = function () {

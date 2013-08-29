@@ -3,13 +3,14 @@
     height: 500px;
     background-color: grey;
     float: right;
+    margin: 10px 20px 10px 0;
+
 }
 
 div.main {
     margin: 0 auto;
     float: none;
 }
-
 
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
     width: 5.3em !important;
@@ -21,4 +22,14 @@ div.main {
 
 #container {
     margin-left: 10px !important;
+    margin-right: 10px !important;
+}
+
+div.page {
+    margin-top: 20px;
+}
+
+h1 {
+    text-align: center;
+    padding-top: 20px;
 }
