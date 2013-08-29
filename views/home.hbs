@@ -15,18 +15,27 @@
 
 </head>
 <body>
-    <h1>Worm under a video</h1>
 
-    <h1>Worm-o-meter</h1>
-    <p>Yay</p>
-    <div id="slider-vertical" style="height: 200px;"></div>
-    <p>Boo</p>
-    <div id="videoPlayer"></div>
+    <div class="row">
+        <div class="span12 main">
+            <h1>Worm under a video</h1>
+
+            <div class="slider pull-left">
+                <div id="slider-vertical" style="height: 475px; width: 75px; "></div>
+            </div>
+
+            <div id="video"></div>
+
+            <div id="container" style="min-width: 310px; height: 200px; margin: 0 auto"></div>
+
+        </div>
+    </div>
+
     <script type="text/javascript">
         var myPlayer;
         ninemsn.portal.common.video.ready(function () {
             myPlayer = new ninemsn.portal.common.video.Player({
-                outputLocation: "videoPlayer",
+                outputLocation: "video",
                 data: {
                     method: ninemsn.portal.common.video.enumerations.data.method.ID,
                     filter: {
@@ -55,7 +64,6 @@
         }
         calculatePosition();
     </script>
-    <div id="container" style="min-width: 310px; height: 200px; margin: 0 auto"></div>
 
     <script type="text/javascript" src="/scripts/worm-under-a-video.js"></script>
     <script src="/socket.io/socket.io.js"></script>
