@@ -10,8 +10,9 @@ $(function() {
 
     var x = 0;
 
-    $('#container').highcharts({
+    var chart = new Highcharts.Chart({
         chart: {
+            renderTo: 'container',
             type: 'spline'  ,
             animation: Highcharts.svg,
             events: {
@@ -98,4 +99,9 @@ $(function() {
             }
         }
     });
+
+    window.addPoint = function(timeIndex, num){
+        chart.series[0].addPoint([timeIndex, num], true, true);
+    }
+
 });
