@@ -26,7 +26,9 @@ $(function() {
         chart: {
             renderTo: 'container',
             type: 'spline'  ,
-            animation: Highcharts.svg,
+            animation: {
+                duration: 900
+            },
             events: {
 
             },
