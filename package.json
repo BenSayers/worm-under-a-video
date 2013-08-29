@@ -8,6 +8,7 @@
     "dependencies": {
         "express": "*",
         "hbs": "*",
-        "coffee-script": "*"
+        "coffee-script": "*",
+        "socket.io": "*"
     }
 }
