@@ -19,8 +19,9 @@ app.get '/', (request, response) ->
 data = []
 
 io.sockets.on 'connection', (socket) ->
+  console.log data
   socket.emit 'init', data
-  socket.on 'update', (updateData) ->
+  socket.on 'client-update', (updateData) ->
     existing = data[updateData.index]
     if existing
       newCount = existing.count + 1
@@ -29,7 +30,8 @@ io.sockets.on 'connection', (socket) ->
     else
       data[updateData.index] = {count: 1, mood: updateData.mood}
 
-    io.sockets.emit 'update', data[updateData.index]
+    existing = data[updateData.index]
+    io.sockets.emit 'update', { count: existing.count, mood: existing.mood, index: updateData.index }
 
 server.listen app.get('port'), ->
   console.log "Express server listening on port #{app.get('port')}"

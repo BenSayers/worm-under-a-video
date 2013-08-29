@@ -16,14 +16,14 @@ $(function() {
             type: 'spline'  ,
             animation: Highcharts.svg,
             events: {
-                load: function() {
-                    var series = this.series[0];
-                    setInterval(function() {
-                        x++;
-                        var y = Math.floor(Math.random() * 10) + 1;
-                        series.addPoint([x, y], true, true);
-                    }, 1000);
-                }
+//                load: function() {
+//                    var series = this.series[0];
+//                    setInterval(function() {
+//                        x++;
+//                        var y = Math.floor(Math.random() * 10) + 1;
+//                        series.addPoint([x, y], true, true);
+//                    }, 1000);
+//                }
             },
             marginTop: 20
         },
@@ -64,17 +64,17 @@ $(function() {
                 }
             },
             min: 0,
-            max: 10,
+            max: 100,
             minorGridLineWidth: 0,
             gridLineWidth: 0,
             alternateGridColor: null,
             plotBands: [{
                 from: 0,
-                to: 5,
+                to: 50,
                 color: 'rgba(255, 0, 0, 0.1)'
             }, {
-                from: 5,
-                to: 10,
+                from: 50,
+                to: 100,
                 color: 'rgba(0, 255, 0, 0.1)'
             }]
         },
@@ -106,7 +106,7 @@ $(function() {
                     x = i;
                     data.push({
                         x: i,
-                        y: 5
+                        y: 50
                     });
                 }
                 return data;
@@ -122,8 +122,7 @@ $(function() {
 
     window.addPoint = function(timeIndex, num){
         chart.series[0].addPoint([timeIndex, num], true, true);
-    }
-
+    };
 
     var myPlayer;
     ninemsn.portal.common.video.ready(function () {
@@ -147,7 +146,7 @@ $(function() {
         });
 
         myPlayer.on('video:opening', function () {
-            var socket = io.connect('http://localhost');
+            var socket = io.connect('/');
             var data = null;
             var positionsSent = {};
 
@@ -159,12 +158,28 @@ $(function() {
                 return $('#slider-vertical').slider('option', 'value');
             };
 
+            var updateGraph = function(position, clientMood) {
+                var nextPosition = { x: position }
+
+                var existing = data[position];
+                console.log('existing', existing);
+                if (existing) {
+                    var newCount = existing.count + 1;
+                    nextPosition.y = ((existing.mood * existing.count) + clientMood) / newCount;
+                } else {
+                    nextPosition.y = clientMood;
+                }
+
+                chart.series[0].addPoint([nextPosition.x, nextPosition.y], true, true);
+            };
+
             var collect = function () {
                 var position = getPosition();
 
                 if (!positionsSent[position]) {
                     var mood = getMood();
-                    socket.emit('update', { mood: mood, index: position });
+                    updateGraph(position, mood);
+                    socket.emit('client-update', { mood: mood, index: position });
                     positionsSent[position] = true;
                 }
 
@@ -174,6 +189,10 @@ $(function() {
             socket.on('init', function (initData) {
                 data = initData;
                 collect()
+            });
+
+            socket.on('update', function(dataItem) {
+                data[dataItem.index] = { count: dataItem.count, mood: dataItem.mood }
             });
         });
     });
