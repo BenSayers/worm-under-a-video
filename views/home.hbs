@@ -30,7 +30,8 @@
 
         </div>
     </div>
-
+    <script type="text/javascript" src="/scripts/worm-under-a-video.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     <script type="text/javascript">
         var myPlayer;
         ninemsn.portal.common.video.ready(function () {
@@ -53,31 +54,37 @@
                     }
                 }
             });
-        });
 
-        var calculatePosition = function () {
-            setTimeout(function () {
-                if (myPlayer && myPlayer.get) {
-                    var myPos = myPlayer.get('POSITION');
-                    console.log(myPos);
-                }
-                calculatePosition();
-            },100);
-        }
-        calculatePosition();
-    </script>
+            myPlayer.on('video:opening', function () {
+                var socket = io.connect('http://localhost');
+                var data = null;
+                var positionsSent = {};
 
-    <script type="text/javascript" src="/scripts/worm-under-a-video.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-        var socket = io.connect('http://localhost');
-        socket.on('news', function (data) {
-            console.log(data);
-            if (myPlayer && myPlayer.get) {
-                    var myPos = myPlayer.get('POSITION');
-                    
-                    socket.emit('update', { mood: 'data', index: parseInt(myPos) });
-                }
+                var getPosition = function () {
+                    return parseInt(myPlayer.get('POSITION'));
+                };
+
+                var getMood = function () {
+                    return 5;
+                };
+
+                var collect = function () {
+                    var position = getPosition();
+
+                    if (!positionsSent[position]) {
+                        var mood = getMood();
+                        socket.emit('update', { mood: mood, index: position });
+                        positionsSent[position] = true;
+                    }
+
+                    setTimeout(collect, 500);
+                };
+
+                socket.on('init', function (initData) {
+                    data = initData;
+                    collect()
+                });
+            });
         });
     </script>
 </body>
