@@ -117,4 +117,58 @@ $(function() {
         chart.series[0].addPoint([timeIndex, num], true, true);
     }
 
+
+    var myPlayer;
+    ninemsn.portal.common.video.ready(function () {
+        myPlayer = new ninemsn.portal.common.video.Player({
+            outputLocation: "video",
+            height: '500',
+            width: '800',
+            data: {
+                method: ninemsn.portal.common.video.enumerations.data.method.ID,
+                filter: {
+                    // id: "2633252440001"
+                    id: '97F3402B-B6B6-451A-A99B-03127133372D'
+                }
+            },
+            ads: {
+                freewheel: {
+                    serverUrl: 'http://5c264.v.fwmrm.net',
+                    networkId: 377444,
+                    siteSection: 'noAds'
+                }
+            }
+        });
+
+        myPlayer.on('video:opening', function () {
+            var socket = io.connect('http://localhost');
+            var data = null;
+            var positionsSent = {};
+
+            var getPosition = function () {
+                return parseInt(myPlayer.get('POSITION'));
+            };
+
+            var getMood = function () {
+                return $('#slider-vertical').slider('option', 'value');
+            };
+
+            var collect = function () {
+                var position = getPosition();
+
+                if (!positionsSent[position]) {
+                    var mood = getMood();
+                    socket.emit('update', { mood: mood, index: position });
+                    positionsSent[position] = true;
+                }
+
+                setTimeout(collect, 500);
+            };
+
+            socket.on('init', function (initData) {
+                data = initData;
+                collect()
+            });
+        });
+    });
 });
