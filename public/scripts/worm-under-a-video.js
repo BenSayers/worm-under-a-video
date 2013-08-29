@@ -65,6 +65,8 @@ $(function() {
                    switch(this.value){
                        case 100:
                            return "Yay!";
+                       case 50:
+                           return "Meh";
                        case 0:
                            return "No!";
                    }
@@ -136,7 +138,7 @@ $(function() {
         myPlayer = new ninemsn.portal.common.video.Player({
             outputLocation: "video",
             height: '500',
-            width: '800',
+            width: '820',
             data: {
                 method: ninemsn.portal.common.video.enumerations.data.method.ID,
                 filter: {
