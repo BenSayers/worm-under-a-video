@@ -225,7 +225,8 @@ $(function() {
 
             var postComment = function () {
                 var position = getPosition();
-                socket.emit('client-comment-update', { comment: $('.comments-box').val(), index: position });
+                var mood = getMood();
+                socket.emit('client-comment-update', { comment: $('.comments-box').val(), mood: mood, index: position });
                 $('.comments-box').val('');
             };
 
