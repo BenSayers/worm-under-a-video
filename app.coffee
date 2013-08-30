@@ -30,20 +30,25 @@ app.get '/clear', (request, response) ->
   data = []
   response.send 200
 
-io.sockets.on 'connection', (socket) ->
-  console.log data
-  socket.emit 'init', data
-  socket.on 'client-update', (updateData) ->
-    existing = data[updateData.index]
-    if existing
-      newCount = existing.count + 1
-      existing.mood = ((existing.mood * existing.count) + updateData.mood) / newCount
-      existing.count = newCount
-    else
-      data[updateData.index] = {count: 1, mood: updateData.mood}
+getDataItemForIndex = (index) ->
+  data[index] = {count: 0, mood: 0, comments: [], index: index} if not data[index]
+  data[index]
 
-    existing = data[updateData.index]
-    io.sockets.emit 'update', { count: existing.count, mood: existing.mood, index: updateData.index }
+updateClientsForIndex = (index) -> io.sockets.emit 'update', data[index]
+
+io.sockets.on 'connection', (socket) ->
+  socket.emit 'init', data
+  socket.on 'client-mood-update', (updateData) ->
+    dataItem = getDataItemForIndex(updateData.index)
+    newCount = dataItem.count + 1
+    dataItem.mood = ((dataItem.mood * dataItem.count) + updateData.mood) / newCount
+    dataItem.count = newCount
+    updateClientsForIndex(updateData.index)
+
+  socket.on 'client-comment-update', (updateData) ->
+    dataItem = getDataItemForIndex(updateData.index)
+    dataItem.comments.push updateData.comment
+    updateClientsForIndex(updateData.index)
 
 server.listen app.get('port'), ->
   console.log "Express server listening on port #{app.get('port')}"
