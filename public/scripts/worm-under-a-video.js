@@ -1,11 +1,27 @@
 $(function() {
+
     var calculateMoodColor = function (moodValue) {
         var r, g, b = 0;
         g = Math.round(255 / 100 * moodValue); // 2.55 * (0 - 100) = 0 - 255
         r = 255 - g;
-        var color = 'rgba(' + r + ',' + g + ',' + b + ', 1.0)';
+        return 'rgba(' + r + ',' + g + ',' + b + ', 0.2)';
 
     }
+
+    var normalizePitch = function(pitch){
+        var normalized = pitch < -7 ? -7 : pitch;
+        normalized = normalized > -3 ? -3 : normalized;   
+        normalized = (normalized + 7) / 4;
+        return Math.round(normalized * 100)
+    }
+
+    var onDeviceMotion = function (event) {
+        var y = event.accelerationIncludingGravity.y;
+        $('#slider-vertical').slider('option', 'value', normalizePitch(y));
+    }
+
+    window.addEventListener("devicemotion",onDeviceMotion,false);
+
 
     $( "#slider-vertical" ).slider({
         orientation: "vertical",
@@ -185,7 +201,7 @@ $(function() {
                     graphData.count = newCount;
 
                     if (existing.comments && existing.comments.length) {
-                        var commentMood =  calculateMoodColor(comments[0].mood);
+                        var commentMood =  calculateMoodColor(existing.comments[0].mood);
                         $('.comments').prepend('<div class="comment" style="background-color:' + commentMood + '">' + existing.comments[0].comment + '</div>')
                     }
                 } else {
@@ -218,11 +234,18 @@ $(function() {
 
             var postComment = function () {
                 var position = getPosition();
-                socket.emit('client-comment-update', { comment: $('.comments-box').val(), index: position });
+                var mood = getMood();
+                socket.emit('client-comment-update', { comment: $('.comments-box').val(), mood: mood, index: position });
                 $('.comments-box').val('');
             };
 
             $('.comments-submit-button').click(postComment);
+
+            $('.comments-box').keyup(function (event) {
+                if(event.keyCode == 13){
+                    $('.comments-submit-button').click();
+                }
+            });
 
             socket.on('init', function (initData) {
                 console.log(initData);

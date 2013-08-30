@@ -32,13 +32,17 @@ app.get '/clear', (request, response) ->
 
 getRandomInt = (min, max) -> Math.floor(Math.random() * (max - min + 1)) + min
 
+generateComment = -> { comment: "lorem-ipsum #{getRandomInt(1, 1000)}", mood: getRandomInt(0, 100) }
+
+
 app.get '/populate', (request, response) ->
   for i in [0..59]
     data[i] =
       count: getRandomInt(1, 5)
       index: i
-      comments: ["lorem-ipsum #{getRandomInt(1, 1000)}"] if getRandomInt(1, 2) > 1
+      comments: []
       mood: getRandomInt(0, 100)
+    data[i].comments.push generateComment() if getRandomInt(1, 2) > 1
 
   response.send 200
 
@@ -59,7 +63,7 @@ io.sockets.on 'connection', (socket) ->
 
   socket.on 'client-comment-update', (updateData) ->
     dataItem = getDataItemForIndex(updateData.index)
-    dataItem.comments.push updateData.comment
+    dataItem.comments.push { comment: updateData.comment, mood: updateData.mood }
     updateClientsForIndex(updateData.index)
 
 server.listen app.get('port'), ->
