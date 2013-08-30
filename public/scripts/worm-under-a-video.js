@@ -1,4 +1,12 @@
 $(function() {
+    var calculateMoodColor = function (moodValue) {
+        var r, g, b = 0;
+        g = Math.round(255 / 100 * moodValue); // 2.55 * (0 - 100) = 0 - 255
+        r = 255 - g;
+        var color = 'rgba(' + r + ',' + g + ',' + b + ', 1.0)';
+
+    }
+
     $( "#slider-vertical" ).slider({
         orientation: "vertical",
         range: "min",
@@ -7,11 +15,7 @@ $(function() {
         value: 50,
         step: 1 ,
         slide: function(event, ui) {
-            // from pure red to pure green
-            var r, g, b = 0;
-            g = Math.round(255 / 100 * ui.value); // 2.55 * (0 - 100) = 0 - 255
-            r = 255 - g;
-            var color = 'rgba(' + r + ',' + g + ',' + b + ', 0.2)';
+            var color = calculateMoodColor(ui.value);
             $(this).find('.ui-slider-range').css({
                 'background': color
             });
@@ -156,6 +160,8 @@ $(function() {
             }
         });
 
+
+
         myPlayer.on('video:opening', function () {
             var socket = io.connect('/');
             var data = null;
@@ -177,6 +183,11 @@ $(function() {
                     var newCount = existing.count + 1;
                     graphData.y = ((existing.mood * existing.count) + clientMood) / newCount;
                     graphData.count = newCount;
+
+                    if (existing.comments && existing.comments.length) {
+                        var commentMood =  calculateMoodColor(comments[0].mood);
+                        $('.comments').prepend('<div class="comment" style="background-color:' + commentMood + '">' + existing.comments[0].comment + '</div>')
+                    }
                 } else {
                     graphData.y = clientMood;
                     graphData.count = 1;
@@ -187,9 +198,7 @@ $(function() {
 
                 $('.number').text(graphData.count + ' user(s)');
 
-                if (graphData.comments && graphData.comments.length) {
-                    $('comments').append('<div class="comment">' + graphData.comments[0] + '</div>')
-                }
+
 
             };
 
@@ -216,6 +225,7 @@ $(function() {
             $('.comments-submit-button').click(postComment);
 
             socket.on('init', function (initData) {
+                console.log(initData);
                 data = initData;
                 collect()
             });
