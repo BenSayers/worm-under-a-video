@@ -195,7 +195,7 @@ $(function() {
                 if (!positionsSent[position]) {
                     var mood = getMood();
                     updateGraph(position, mood);
-                    socket.emit('client-update', { mood: mood, index: position });
+                    socket.emit('client-mood-update', { mood: mood, index: position });
                     positionsSent[position] = true;
                 }
 
