@@ -1,3 +1,8 @@
+body {
+    background-color: black;
+    color: white;
+}
+
 #video {
     width: 820px;
     height: 500px;
