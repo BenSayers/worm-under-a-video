@@ -5,7 +5,6 @@ $(function() {
         g = Math.round(255 / 100 * moodValue); // 2.55 * (0 - 100) = 0 - 255
         r = 255 - g;
         return 'rgba(' + r + ',' + g + ',' + b + ', 0.2)';
-
     }
 
     var normalizePitch = function(pitch){
@@ -13,14 +12,16 @@ $(function() {
         normalized = normalized > -2 ? -2 : normalized;
         normalized = (normalized + 8) / 6;
         return Math.round(normalized * 100)
-    }
+    };
 
-    var onDeviceMotion = function (event) {
+    var updateMotionSlider = function (event) {
         var y = event.accelerationIncludingGravity.y;
         $('#slider-vertical').slider('option', 'value', normalizePitch(y));
-    }
+    };
 
-    window.addEventListener("devicemotion",onDeviceMotion,false);
+    var onDeviceMotion = _.throttle(updateMotionSlider,125);
+
+    window.addEventListener("devicemotion", onDeviceMotion, false);
 
 
     $( "#slider-vertical" ).slider({
