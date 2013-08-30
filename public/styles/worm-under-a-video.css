@@ -58,20 +58,42 @@ div.main {
 
 .thumbs .yes {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 20px;
-    height: 20px;
+    top: 50px;
+    left: -21px;
+    width: 113px;
+    height: 71px;
     display: block;
+    background: url("/assets/large_green_thumbs.png") no-repeat;
+    font-size: 18pt;
+}
+
+.thumbs .yes:after {
+    content: "YAY";
+    display: block;
+    position: absolute;
+    bottom: -36px;
+    text-align: center;
+    left: 7px;
 }
 
 .thumbs .no {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 20px;
-    height: 20px;
+    bottom: 61px;
+    left: -21px;
+    width: 113px;
+    height: 71px;
     display: block;
+    background: url("/assets/large_red_thumb.png") no-repeat;
+    font-size: 18pt;
+}
+
+.thumbs .no:after {
+    content: "NAY";
+    display: block;
+    position: absolute;
+    bottom: -36px;
+    text-align: center;
+    left: 7px;
 }
 
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
