@@ -179,7 +179,16 @@ $(function() {
          var postCommentToTimeline = function (commentObj) {
 
              var commentMood =  calculateMoodColor(commentObj.mood);
-             $('.comments').prepend('<div class="comment" style="background-color:' + commentMood + '">' + commentObj.comment + '</div>')
+             $('.comments').prepend('<div class="comment" style="display: none; background-color:' + commentMood + '">' + commentObj.comment + '</div>');
+             if ($('.comments .comment').length == 1) {
+                 $('.comments .comment:first-child').fadeIn(100);
+
+             } else {
+                 $('.comments .comment:last-child').fadeOut(200);
+                 $('.comments .comment:first-child').fadeIn(200);
+                 $('.comments .comment:last-child').remove();
+             }
+
          }
 
         myPlayer.on('video:opening', function () {
@@ -197,7 +206,7 @@ $(function() {
 
             var updateGraph = function(position, clientMood, comments) {
                 var graphData = { x: position }
-
+                var commentPosted = false;
                 var existing = data[position];
                 if (existing) {
                     var newCount = existing.count + 1;
@@ -206,6 +215,7 @@ $(function() {
 
                     if (existing.comments && existing.comments.length) {
                         postCommentToTimeline(existing.comments[0]);
+                        commentPosted = true;
                     }
                 } else {
                     graphData.y = clientMood;
@@ -217,7 +227,9 @@ $(function() {
 
                 $('.number').text(graphData.count + ' user(s)');
 
-
+                if (!commentPosted) {
+                    //$('.comments').prepend('<div class="comment" style="visibility:hidden"></div>')
+                }
 
             };
 
