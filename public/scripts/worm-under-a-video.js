@@ -9,9 +9,9 @@ $(function() {
     }
 
     var normalizePitch = function(pitch){
-        var normalized = pitch < -7 ? -7 : pitch;
-        normalized = normalized > -3 ? -3 : normalized;   
-        normalized = (normalized + 7) / 4;
+        var normalized = pitch < -8 ? -8 : pitch;
+        normalized = normalized > -2 ? -2 : normalized;
+        normalized = (normalized + 8) / 6;
         return Math.round(normalized * 100)
     }
 
