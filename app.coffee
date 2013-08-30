@@ -30,6 +30,18 @@ app.get '/clear', (request, response) ->
   data = []
   response.send 200
 
+getRandomInt = (min, max) -> Math.floor(Math.random() * (max - min + 1)) + min
+
+app.get '/populate', (request, response) ->
+  for i in [0..59]
+    data[i] =
+      count: getRandomInt(1, 5)
+      index: i
+      comments: "lorem-ipsum #{getRandomInt(1, 1000)}" if getRandomInt(1, 2) > 1
+      mood: getRandomInt(0, 100)
+
+  response.send 200
+
 getDataItemForIndex = (index) ->
   data[index] = {count: 0, mood: 0, comments: [], index: index} if not data[index]
   data[index]

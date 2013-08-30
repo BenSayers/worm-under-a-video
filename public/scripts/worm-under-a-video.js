@@ -173,7 +173,6 @@ $(function() {
                 var graphData = { x: position }
 
                 var existing = data[position];
-                console.log('existing', existing);
                 if (existing) {
                     var newCount = existing.count + 1;
                     graphData.y = ((existing.mood * existing.count) + clientMood) / newCount;
