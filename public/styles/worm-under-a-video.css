@@ -165,6 +165,7 @@ h1 {
 
 #slider-vertical {
     background: linear-gradient(to bottom, #4eb748 0%,#941a1d 100%); /* W3C */
+    background: -webkit-linear-gradient(top, #4eb748 0%,#941a1d 100%); /* Chrome10+,Safari5.1+ */
 }
 
 .slider-container {
