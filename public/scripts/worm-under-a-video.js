@@ -1,20 +1,15 @@
 $(function() {
 
-    var deviceMotionMood = 50;
-    var useDeviceMotion = false;
-
-    var onDeviceMotion = function (event) {
-        useDeviceMotion = true;
-        var y = event.accelerationIncludingGravity.y;
-
-        // assuming -5 is neutral
-        var normalized = y < -7 ? -7 : y;
+    var normalizePitch = function(pitch){
+        var normalized = pitch < -7 ? -7 : pitch;
         normalized = normalized > -3 ? -3 : normalized;   
         normalized = (normalized + 7) / 4;
-        deviceMotionMood = normalized * 100; 
+        return Math.round(normalized * 100)
+    }
 
-        $("#normalized").text(normalized);
-        $("#y").text(y + ' ' + deviceMotionMood);
+    var onDeviceMotion = function (event) {
+        var y = event.accelerationIncludingGravity.y;
+        $('#slider-vertical').slider('option', 'value', normalizePitch(y));
     }
 
     window.addEventListener("devicemotion",onDeviceMotion,false);
@@ -187,11 +182,7 @@ $(function() {
             };
 
             var getMood = function () {
-                if (!useDeviceMotion) {
-                    return $('#slider-vertical').slider('option', 'value');
-                } else {
-                    return deviceMotionMood;
-                }
+                return $('#slider-vertical').slider('option', 'value');
             };
 
             var updateGraph = function(position, clientMood, comments) {
