@@ -202,6 +202,12 @@ $(function() {
                 setTimeout(collect, 100);
             };
 
+            var postComment = function () {
+                socket.emit('client-comment-update', { comment: $('.comments-box').val(), index: position });
+            };
+
+            $('.comments-submit-button').click(postComment);
+
             socket.on('init', function (initData) {
                 data = initData;
                 collect()

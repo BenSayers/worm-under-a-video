@@ -7,6 +7,19 @@
 
 }
 
+.comments-box {
+    width: 926px;
+    margin: 0;
+    resize: none;
+}
+
+.comments-label {
+    margin: 10px 0 0 0;
+}
+
+.comments-submit-button {
+    cursor: pointer;
+}
 
 span.yes {
     position: absolute;
