@@ -1,3 +1,8 @@
+body {
+    background-color: black;
+    color: white;
+}
+
 #video {
     width: 820px;
     height: 500px;
@@ -15,19 +20,26 @@
 }
 
 .comments-box {
-    width: 926px;
+    width: 100%;
     margin: 0;
     resize: none;
 }
 
 .comments-label {
-    margin: 10px 0 0 0;
+    margin: 20px 0 5px 0;
 }
 
 .comments-submit-button {
     cursor: pointer;
+    color: white;
+    display: block;
+    margin: 5px 0 20px 0;
 }
 
+.comment-container {
+    float: left;
+    width: 60%
+}
 span.yes {
     position: absolute;
     width: 78px;
@@ -47,11 +59,62 @@ span.no {
 div.main {
     margin: 0 auto;
     float: none;
+    position: relative;
+}
+
+.thumbs {
+    position: absolute;
+    left: -50px;
+    top: 112px;
+    height: 498px;
+    width: 50px;
+}
+
+.thumbs .yes {
+    position: absolute;
+    top: 50px;
+    left: -21px;
+    width: 113px;
+    height: 71px;
+    display: block;
+    background: url("/assets/large_green_thumbs.png") no-repeat;
+    font-size: 18pt;
+}
+
+.thumbs .yes:after {
+    content: "YAY";
+    display: block;
+    position: absolute;
+    bottom: -36px;
+    text-align: center;
+    left: 7px;
+}
+
+.thumbs .no {
+    position: absolute;
+    bottom: 61px;
+    left: -21px;
+    width: 113px;
+    height: 71px;
+    display: block;
+    background: url("/assets/large_red_thumb.png") no-repeat;
+    font-size: 18pt;
+}
+
+.thumbs .no:after {
+    content: "NAY";
+    display: block;
+    position: absolute;
+    bottom: -36px;
+    text-align: center;
+    left: 7px;
 }
 
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
-    width: 5.3em !important;
+    width: 30px !important;
     z-index: 12 !important;
+    border-radius: 30px;
+    height: 30px;
 }
 
 .slider {
@@ -82,20 +145,32 @@ h1 {
 }
 
 .comments {
-    width: 100%;
+    float: left;
+    width: 40%;
     overflow: hidden;
     max-height: 100px;
-    position: relative;
-    height: 50px;
 }
 
 .comment {
-    position: absolute;
+    float: right;
     padding: 5px;
+    width: 315px;
+    height: 50px;
     border: 1px solid #aaa;
     background: #ccc;
     border-radius: 10px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    width: 98%
+    margin: 15px;
+}
+
+#slider-vertical {
+    background: linear-gradient(to bottom, #4eb748 0%,#941a1d 100%); /* W3C */
+}
+
+.slider-container {
+    position: relative;
+}
+
+.yes {
+    position: absolute;
+    left: -50px;
 }

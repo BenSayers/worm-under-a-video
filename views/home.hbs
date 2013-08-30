@@ -3,9 +3,9 @@
 <head>
     <title>Worm under a video</title>
 
-    <link rel="stylesheet" href="/styles/bootstrap.min.css" />
+    <link rel="stylesheet" href="/styles/bootstrap.css" />
+    <link rel="stylesheet" href="/styles/jquery-ui.css" />
     <link rel="stylesheet" href="/styles/worm-under-a-video.css" />
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 </head>
 <body>
 
@@ -13,29 +13,30 @@
         <div class="span12 main">
             <h1>Worm under a video</h1>
             <div id="explanation">Hey, you're on a device! Tilt it back and forth to affect the worm</div>
-            <hr />
-            <div style="overflow: auto; background: rgba(200, 200, 200, 0.3); padding: 10px 0">
 
+            <div class="thumbs">
+                <span class="yes"></span>
+                <span class="no"></span>
+            </div>
+
+            <div style="overflow: auto; padding: 10px 0">
                 <div class="slider pull-left">
-                    <span class="yes">Yay</span>
-                    <span class="no">No</span>
-                    <div id="slider-vertical" style="height: 499px; width: 75px; "></div>
+                    <div id="slider-vertical" style="height: 499px; width: 20px; "></div>
                 </div>
 
                 <div id="video"></div>
             </div>
             <div class="number"></div>
-            <div style="overflow: auto; background: rgba(200, 200, 200, 0.3); padding: 10px 0">
+            <div style="overflow: auto; padding: 10px 0">
                 <div id="container" style="min-width: 310px; height: 200px; margin: 0 auto"></div>
             </div>
-             <div class="comments">
-             </div>
-
-            <div class="comments-label">Comments</div>
-            <input class="comments-box" rows="1"></input>
-            <a class="comments-submit-button">Submit</a>
-            <hr />
-        </div>
+            <div class="comment-container">
+                <div class="comments-label">Comments</div>
+                <input class="comments-box" rows="1"></input>
+                <a class="comments-submit-button">Submit</a>
+            </div>
+            <div class="comments">
+            </div>
     </div>
 
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
@@ -45,6 +46,7 @@
     <script src="http://shared.ninemsn.com.au/share/short_cache/js/video/ninemsn.portal.common.video.loader-latest.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js"></script>
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="/scripts/chartTheme.js"></script>
     <script type="text/javascript" src="/scripts/worm-under-a-video.js"></script>
 </body>
 </html>

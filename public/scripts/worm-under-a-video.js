@@ -53,16 +53,8 @@ $(function() {
         min: 0,
         max: 100,
         value: 50,
-        step: 1 ,
-        slide: function(event, ui) {
-            var color = calculateMoodColor(ui.value);
-            $(this).find('.ui-slider-range').css({
-                'background': color
-            });
-        }
+        step: 1
     });
-
-    $('.ui-slider-range').css({background: 'rgba(128, 127, 0, 0.2)'});
 
     var x = 0;
 
@@ -114,7 +106,7 @@ $(function() {
                        case 50:
                            return "Meh";
                        case 0:
-                           return "No!";
+                           return "Nay!";
                    }
                 }
             },
@@ -122,16 +114,7 @@ $(function() {
             max: 100,
             minorGridLineWidth: 0,
             gridLineWidth: 0,
-            alternateGridColor: null,
-            plotBands: [{
-                from: 0,
-                to: 50,
-                color: 'rgba(255, 0, 0, 0.1)'
-            }, {
-                from: 50,
-                to: 100,
-                color: 'rgba(0, 255, 0, 0.1)'
-            }]
+            alternateGridColor: null
         },
         tooltip: {
             valueSuffix: 's'
