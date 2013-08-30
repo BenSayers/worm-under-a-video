@@ -14,14 +14,33 @@ $(function() {
         return Math.round(normalized * 100)
     };
 
+    var specialMagicRollingArray = (function () {
+        var array = [0];
+
+        return returnObject = {
+            push: function (thingToPush) {
+                if (array.length >= 7) {
+                    array.shift();
+                }
+                array.push(thingToPush);
+            },
+            average: function () {
+                accumulation = 0;
+                for (i=0; i<array.length; i++) {
+                    accumulation+=array[i];
+                }
+                return accumulation/array.length;
+            }
+        }
+    }());
+
     var updateMotionSlider = function (event) {
         var y = event.accelerationIncludingGravity.y;
-        $('#slider-vertical').slider('option', 'value', normalizePitch(y));
+        specialMagicRollingArray.push(normalizePitch(y));
+        $('#slider-vertical').slider('option', 'value', specialMagicRollingArray.average());
     };
 
-    var onDeviceMotion = _.throttle(updateMotionSlider,125);
-
-    window.addEventListener("devicemotion", onDeviceMotion, false);
+    window.addEventListener("devicemotion", updateMotionSlider, false);
 
 
     $( "#slider-vertical" ).slider({
