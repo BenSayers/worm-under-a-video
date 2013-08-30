@@ -1,17 +1,25 @@
-var deviceMotionMood = 50;
-var useDeviceMotion = false;
-
-
-function logAccelerometerData(_x, _y, _z) {
-    useDeviceMotion = true;
-    normalized = _x > 0.5 ? 0.5 : _x;
-    normalized = normalized < -0.5 ? -0.5 : normalized;
-    deviceMotionMood = normalized * 100 + 50; // normalized over 
-    document.getElementById("x").innerHTML = "x:" + _x + ", ";
-}
-
-
 $(function() {
+
+    var deviceMotionMood = 50;
+    var useDeviceMotion = false;
+
+    var onDeviceMotion = function (event) {
+        useDeviceMotion = true;
+        var y = event.accelerationIncludingGravity.y;
+
+        // assuming -5 is neutral
+        var normalized = y < -7 ? -7 : y;
+        normalized = normalized > -3 ? -3 : normalized;   
+        normalized = (normalized + 7) / 4;
+        deviceMotionMood = normalized * 100; 
+
+        $("#normalized").text(normalized);
+        $("#y").text(y + ' ' + deviceMotionMood);
+    }
+
+    window.addEventListener("devicemotion",onDeviceMotion,false);
+
+
     $( "#slider-vertical" ).slider({
         orientation: "vertical",
         range: "min",
