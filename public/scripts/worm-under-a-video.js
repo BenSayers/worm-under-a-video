@@ -18,7 +18,7 @@ $(function() {
         }
     });
 
-    $('.ui-slider-range').css({background: 'rgba(128, 127, 0, 0.2)'})
+    $('.ui-slider-range').css({background: 'rgba(128, 127, 0, 0.2)'});
 
     var x = 0;
 
@@ -169,7 +169,7 @@ $(function() {
                 return $('#slider-vertical').slider('option', 'value');
             };
 
-            var updateGraph = function(position, clientMood) {
+            var updateGraph = function(position, clientMood, comments) {
                 var graphData = { x: position }
 
                 var existing = data[position];
@@ -187,6 +187,9 @@ $(function() {
                 //chart.series[1].addPoint([nextPosition.x, clientMood], true, true);
 
                 $('.number').text(graphData.count + ' user(s)');
+
+                $('comments').append('<div class="comment">' + graphData.comments[0] + '</div>')
+
             };
 
             var collect = function () {
@@ -194,7 +197,8 @@ $(function() {
 
                 if (!positionsSent[position]) {
                     var mood = getMood();
-                    updateGraph(position, mood);
+                    var comments = getComments();
+                    updateGraph(position, mood, comments);
                     socket.emit('client-update', { mood: mood, index: position });
                     positionsSent[position] = true;
                 }
@@ -208,7 +212,7 @@ $(function() {
             });
 
             socket.on('update', function(dataItem) {
-                data[dataItem.index] = { count: dataItem.count, mood: dataItem.mood }
+                data[dataItem.index] = dataItem
             });
         });
     });
