@@ -37,7 +37,7 @@ app.get '/populate', (request, response) ->
     data[i] =
       count: getRandomInt(1, 5)
       index: i
-      comments: "lorem-ipsum #{getRandomInt(1, 1000)}" if getRandomInt(1, 2) > 1
+      comments: ["lorem-ipsum #{getRandomInt(1, 1000)}"] if getRandomInt(1, 2) > 1
       mood: getRandomInt(0, 100)
 
   response.send 200
