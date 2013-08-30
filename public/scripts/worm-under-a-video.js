@@ -42,6 +42,10 @@ $(function() {
 
     window.addEventListener("devicemotion", updateMotionSlider, false);
 
+    if (window.DeviceMotionEvent) 
+    {
+        $('#explanation').css('display', 'block');
+    }
 
     $( "#slider-vertical" ).slider({
         orientation: "vertical",

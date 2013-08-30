@@ -7,6 +7,13 @@
 
 }
 
+#explanation {
+    font-size:1.8em;
+    text-align: center;
+    padding: 10px 0px;
+    display: none;
+}
+
 .comments-box {
     width: 926px;
     margin: 0;
