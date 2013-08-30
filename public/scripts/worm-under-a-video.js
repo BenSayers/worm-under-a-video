@@ -210,6 +210,7 @@ $(function() {
             var postComment = function () {
                 var position = getPosition();
                 socket.emit('client-comment-update', { comment: $('.comments-box').val(), index: position });
+                $('.comments-box').val('');
             };
 
             $('.comments-submit-button').click(postComment);
