@@ -215,6 +215,12 @@ $(function() {
 
             $('.comments-submit-button').click(postComment);
 
+            $('.comments-box').keyup(function (event) {
+                if(event.keyCode == 13){
+                    $('.comments-submit-button').click();
+                }
+            });
+
             socket.on('init', function (initData) {
                 data = initData;
                 collect()
