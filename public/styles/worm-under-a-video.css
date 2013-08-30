@@ -156,10 +156,11 @@ h1 {
     padding: 5px;
     width: 315px;
     height: 50px;
-    border: 1px solid #aaa;
     background: #ccc;
     border-radius: 10px;
     margin: 15px;
+    line-height: 50px;
+    padding-left: 15px;
 }
 
 #slider-vertical {
