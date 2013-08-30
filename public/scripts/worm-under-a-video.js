@@ -176,7 +176,11 @@ $(function() {
             }
         });
 
+         var postCommentToTimeline = function (commentObj) {
 
+             var commentMood =  calculateMoodColor(commentObj.mood);
+             $('.comments').prepend('<div class="comment" style="background-color:' + commentMood + '">' + commentObj.comment + '</div>')
+         }
 
         myPlayer.on('video:opening', function () {
             var socket = io.connect('/');
@@ -201,8 +205,7 @@ $(function() {
                     graphData.count = newCount;
 
                     if (existing.comments && existing.comments.length) {
-                        var commentMood =  calculateMoodColor(existing.comments[0].mood);
-                        $('.comments').prepend('<div class="comment" style="background-color:' + commentMood + '">' + existing.comments[0].comment + '</div>')
+                        postCommentToTimeline(existing.comments[0]);
                     }
                 } else {
                     graphData.y = clientMood;
@@ -235,7 +238,9 @@ $(function() {
             var postComment = function () {
                 var position = getPosition();
                 var mood = getMood();
-                socket.emit('client-comment-update', { comment: $('.comments-box').val(), mood: mood, index: position });
+                var commentObj = { comment: $('.comments-box').val(), mood: mood, index: position };
+                socket.emit('client-comment-update', commentObj);
+                postCommentToTimeline(commentObj);
                 $('.comments-box').val('');
             };
 
