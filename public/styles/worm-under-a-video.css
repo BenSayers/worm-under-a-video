@@ -72,7 +72,7 @@ div.main {
 
 .thumbs .yes {
     position: absolute;
-    top: 50px;
+    top: -31px;
     left: -21px;
     width: 113px;
     height: 71px;
@@ -92,7 +92,7 @@ div.main {
 
 .thumbs .no {
     position: absolute;
-    bottom: 61px;
+    bottom: 26px;
     left: -21px;
     width: 113px;
     height: 71px;
@@ -105,7 +105,7 @@ div.main {
     content: "NAY";
     display: block;
     position: absolute;
-    bottom: -36px;
+    bottom: 79px;
     text-align: center;
     left: 7px;
 }
