@@ -188,7 +188,9 @@ $(function() {
 
                 $('.number').text(graphData.count + ' user(s)');
 
-                $('comments').append('<div class="comment">' + graphData.comments[0] + '</div>')
+                if (graphData.comments && graphData.comments.length) {
+                    $('comments').append('<div class="comment">' + graphData.comments[0] + '</div>')
+                }
 
             };
 
@@ -205,6 +207,13 @@ $(function() {
 
                 setTimeout(collect, 100);
             };
+
+            var postComment = function () {
+                var position = getPosition();
+                socket.emit('client-comment-update', { comment: $('.comments-box').val(), index: position });
+            };
+
+            $('.comments-submit-button').click(postComment);
 
             socket.on('init', function (initData) {
                 data = initData;
