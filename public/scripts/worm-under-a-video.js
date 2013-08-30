@@ -29,16 +29,8 @@ $(function() {
         min: 0,
         max: 100,
         value: 50,
-        step: 1 ,
-        slide: function(event, ui) {
-            var color = calculateMoodColor(ui.value);
-            $(this).find('.ui-slider-range').css({
-                'background': color
-            });
-        }
+        step: 1
     });
-
-    $('.ui-slider-range').css({background: 'rgba(128, 127, 0, 0.2)'});
 
     var x = 0;
 
